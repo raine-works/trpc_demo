@@ -1,0 +1,24 @@
+{
+	"name": "trpc_demo",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"preinstall": "npx only-allow pnpm",
+		"format": "npx prettier --write .",
+		"build": "turbo build",
+		"dev": "NODE_ENV=LOCAL pnpm set.env && turbo dev",
+		"dev.debug": "NODE_ENV=LOCAL pnpm set.env && turbo dev.debug",
+		"start": "NODE_ENV=PROD pnpm set.env && docker compose up -d",
+		"stop": "docker compose down && docker image prune -a --force",
+		"set.env": "bash scripts/env.sh",
+		"dev.db.start": "docker compose -f docker-compose.dev.yaml up -d",
+		"dev.db.stop": "docker compose -f docker-compose.dev.yaml down"
+	},
+	"devDependencies": {
+		"turbo": "^1.6.3"
+	},
+	"volta": {
+		"node": "18.12.1"
+	},
+	"packageManager": "^pnpm@7.18.1"
+}

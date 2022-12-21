@@ -1,0 +1,6 @@
+{
+	"watch": ["src", "../../packages"],
+	"ingore": ["**/*.test.ts"],
+	"exec": "pnpm --prefix ../../ build && node ./.build/server.js",
+	"ext": "ts, tsx"
+}

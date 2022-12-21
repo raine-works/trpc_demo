@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: db
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=catacomb
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+  api: 
+    container_name: api
+    restart: always
+    build: 
+      context: .
+      dockerfile: apps/api/.docker/Dockerfile
+    ports:
+      - '4000:8080'
+    depends_on:
+      - db
+      
+  web: 
+    container_name: web
+    restart: always
+    build: 
+      context: .
+      dockerfile: apps/web/.docker/Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+
+  nginx:
+    container_name: nginx-proxy
+    restart: always
+    build: 
+      context: utils/nginx
+      dockerfile: .docker/Dockerfile
+    ports:
+      - '80:80'
+    depends_on:
+      - web
+      - api
+
+volumes:
+  db:
+    driver: local

@@ -1,0 +1,16 @@
+{
+	"extends": "ts-config/base.json",
+	"compilerOptions": {
+		"baseUrl": "src",
+		"paths": {
+			"~/*": ["./*"],
+			"~trpc/*": ["./trpc/*"],
+			"~middleware/*": ["./middleware/*"]
+		},
+		"noEmit": false,
+		"rootDir": "src",
+		"outDir": ".build",
+		"emitDeclarationOnly": true
+	},
+	"include": ["src/**/*.ts"]
+}
